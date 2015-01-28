@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 
 public class updatePrice
-{   
+{
+    public static String[] items(){ }
     public static String GE_API = "http://services.runescape.com/m="
             + "itemdb_rs/api/catalogue/detail.json?item=";
 
