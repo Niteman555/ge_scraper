@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class updatePrice
 {
-    public static String[] items(){ }
+    //public static String[] items(){ }
     public static String GE_API = "http://services.runescape.com/m="
             + "itemdb_rs/api/catalogue/detail.json?item=";
 
@@ -40,6 +40,7 @@ public class updatePrice
                    
             // clean up name and price.
             name = name.split(":")[1].split("\"")[1] + ".txt";
+            name = "item_logs/" + name;
             priceStr = priceStr.split(":")[1];
             priceStr = priceStr.substring(0,priceStr.length()-1).replace("\"","");
             
