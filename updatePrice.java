@@ -16,7 +16,7 @@ public class updatePrice
     // item dictionary name
     public static final String ITEM_DICT = "item_dict.txt";
     
-    public static ArrayList<String> loadItems()
+    public static ArrayList<String> loadItems() throws IOException
     {
         ArrayList<String> result = new ArrayList<String>();
         File fp = new File(ITEM_DICT);
@@ -25,6 +25,7 @@ public class updatePrice
         {
             result.add(reader.nextLine());
         }
+        return result;
     }
 
     public static void main(String[] args) throws IOException
@@ -37,6 +38,7 @@ public class updatePrice
         
         // Load previous items from item dictionary.
         ArrayList<String> items = loadItems();
+        System.out.println(items);
         
         // Add command line args to items and update dictionary
         FileWriter dictUpdate = new FileWriter(ITEM_DICT,true);
@@ -51,7 +53,7 @@ public class updatePrice
         dictUpdate.close();
         
         /* Pull data from GE */
-        for (String item : args)
+        for (String item : items)
         {
             // prepare scanner.
             String address = GE_API + item;
@@ -69,7 +71,7 @@ public class updatePrice
                    
             // clean up name and price.
             name = name.split(":")[1].split("\"")[1] + ".txt";
-            name = "item_logs_test/" + name;
+            name = "item_logs/" + name;
             priceStr = priceStr.split(":")[1];
             priceStr = priceStr.substring(0,priceStr.length()-1).replace("\"","");
             
@@ -77,7 +79,7 @@ public class updatePrice
             
             // update price file, or create one if it doesn't already exist,
             // with timestamp and new price data.
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm").format(new java.util.Date());
             FileWriter fp = new FileWriter(name,true);
             fp.write(timeStamp + "\t" + priceStr + "\n");
             fp.close();
