@@ -71,7 +71,7 @@ public class updatePrice
                    
             // clean up name and price.
             name = name.split(":")[1].split("\"")[1] + ".txt";
-            name = "item_logs/" + name;
+            name = "logs/" + name;
             priceStr = priceStr.split(":")[1];
             priceStr = priceStr.substring(0,priceStr.length()-1).replace("\"","");
             
