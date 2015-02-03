@@ -79,7 +79,7 @@ public class updatePrice
             
             // update price file, or create one if it doesn't already exist,
             // with timestamp and new price data.
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm").format(new java.util.Date());
+            String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
             FileWriter fp = new FileWriter(name,true);
             fp.write(timeStamp + "\t" + priceStr + "\n");
             fp.close();
