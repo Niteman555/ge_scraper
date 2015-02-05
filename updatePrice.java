@@ -13,8 +13,14 @@ public class updatePrice
     public static String GE_API = "http://services.runescape.com/m="
             + "itemdb_rs/api/catalogue/detail.json?item=";
     
-    // item dictionary name
+    // item id dictionary name
     public static final String ITEM_DICT = "item_dict.txt";
+    
+    // data file name
+    public static final String DATA_LOG = "data.txt";
+    
+    // item name dictionary filename
+    public static final String NAME_DICT = "item_names.txt";
     
     public static ArrayList<String> loadItems() throws IOException
     {
@@ -29,13 +35,7 @@ public class updatePrice
     }
 
     public static void main(String[] args) throws IOException
-    {
-        // Check for input args.
-        if (args.length < 1)
-        {
-            
-        }
-        
+    {        
         // Load previous items from item dictionary.
         ArrayList<String> items = loadItems();
         System.out.println(items);
@@ -51,6 +51,14 @@ public class updatePrice
             }
         }
         dictUpdate.close();
+        
+        /* Prepare file for writing and create timestamp. */
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
+        FileWriter fp = new FileWriter(DATA_LOG,true);
+        fp.write(timeStamp);
+        
+        /* Update item names log */
+        FileWriter fp2 = new FileWriter(NAME_DICT);
         
         /* Pull data from GE */
         for (String item : items)
@@ -71,7 +79,7 @@ public class updatePrice
                    
             // clean up name and price.
             name = name.split(":")[1].split("\"")[1] + ".txt";
-            name = "logs/" + name;
+            // name = "logs/" + name;
             priceStr = priceStr.split(":")[1];
             priceStr = priceStr.substring(0,priceStr.length()-1).replace("\"","");
             
@@ -79,10 +87,13 @@ public class updatePrice
             
             // update price file, or create one if it doesn't already exist,
             // with timestamp and new price data.
-            String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
-            FileWriter fp = new FileWriter(name,true);
-            fp.write(timeStamp + "\t" + priceStr + "\n");
-            fp.close();
+            String timeStamp = new SimpleDateFormat("yyyy/MM/dd/HH:mm").format(new java.util.Date());
+            fp.write("\t" + priceStr);
+            fp2.write(name + "\n");
         }
+        /* close all streams */
+        fp.write("\n");
+        fp.close();
+        fp2.close();
     }
 }
