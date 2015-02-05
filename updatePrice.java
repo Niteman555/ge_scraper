@@ -53,7 +53,7 @@ public class updatePrice
         dictUpdate.close();
         
         /* Prepare file for writing and create timestamp. */
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd/HH:mm").format(new java.util.Date());
         FileWriter fp = new FileWriter(DATA_LOG,true);
         fp.write(timeStamp);
         
@@ -87,7 +87,6 @@ public class updatePrice
             
             // update price file, or create one if it doesn't already exist,
             // with timestamp and new price data.
-            String timeStamp = new SimpleDateFormat("yyyy/MM/dd/HH:mm").format(new java.util.Date());
             fp.write("\t" + priceStr);
             fp2.write(name + "\n");
         }
