@@ -41,6 +41,7 @@ public class updatePrice
          */
         if (args.length > 0)
         {
+            ArrayList<String> items = loadItems();
             // Add command line args to items and update dictionary
             FileWriter dictUpdate = new FileWriter(ITEM_DICT,true);
             for (String arg : args)
@@ -51,8 +52,8 @@ public class updatePrice
                     dictUpdate.write(arg + "\n");
                 }
             }
-            dictUpdate.close(0);
-            System.exit(System.);
+            dictUpdate.close();
+            System.exit(0);
         }
         // Load previous items from item dictionary.
         ArrayList<String> items = loadItems();
