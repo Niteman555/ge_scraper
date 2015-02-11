@@ -35,25 +35,31 @@ public class updatePrice
     }
 
     public static void main(String[] args) throws IOException
-    {        
+    {   
+        /* If program args are given update the list for the next scheduled run
+         * and exit.
+         */
+        if (args.length > 0)
+        {
+            // Add command line args to items and update dictionary
+            FileWriter dictUpdate = new FileWriter(ITEM_DICT,true);
+            for (String arg : args)
+            {
+                if (!items.contains(arg))
+                {
+                    items.add(arg);
+                    dictUpdate.write(arg + "\n");
+                }
+            }
+            dictUpdate.close(0);
+            System.exit(System.);
+        }
         // Load previous items from item dictionary.
         ArrayList<String> items = loadItems();
         System.out.println(items);
-        
-        // Add command line args to items and update dictionary
-        FileWriter dictUpdate = new FileWriter(ITEM_DICT,true);
-        for (String arg : args)
-        {
-            if (!items.contains(arg))
-            {
-                items.add(arg);
-                dictUpdate.write(arg + "\n");
-            }
-        }
-        dictUpdate.close();
-        
+
         /* Prepare file for writing and create timestamp. */
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd/HH:mm").format(new java.util.Date());
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new java.util.Date());
         FileWriter fp = new FileWriter(DATA_LOG,true);
         fp.write(timeStamp);
         
