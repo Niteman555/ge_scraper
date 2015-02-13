@@ -95,7 +95,7 @@ public class updatePrice
             
             // update price file, or create one if it doesn't already exist,
             // with timestamp and new price data.
-            fp.write("\t" + priceStr);
+            fp.write("," + priceStr);
             fp2.write(name + "\n");
         }
         /* close all streams */
